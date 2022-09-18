@@ -1,3 +1,39 @@
 func void println(string str) {
 	print(str + "\n");
 }
+
+func string boolToStr(bool b) {
+	if (b) {
+		ret "true";
+	}
+	ret "false";
+}
+
+func string intToStr(int num) {
+	// If we don't do this, this will return ""
+	if (num == 0) {
+		ret "0";
+	}
+	 
+	int n = num;
+	string out = "";
+	bool neg = n < 0;
+	
+	// Deal with negatives
+	if (neg) {
+		n = 0 - n;
+	}
+	
+	// Add digits (in reverse order)
+	while (n > 0) {
+		out = "0123456789"[n % 10] + out;
+		n = n / 10;
+	}
+	
+	// Add negative sign (if negative)
+	if (neg) {
+		out = "-" + out;
+	}
+	
+	ret out;
+}
