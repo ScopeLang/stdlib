@@ -15,19 +15,18 @@ func str intToStr(int num) {
 		ret "0";
 	}
 	
-	int n = num;
 	str out = "";
-	bool neg = n < 0;
+	bool neg = num < 0;
 	
 	// Deal with negatives
 	if (neg) {
-		n = 0 - n;
+		num = -num;
 	}
 	
 	// Add digits (in reverse order)
-	while (n > 0) {
-		out = "0123456789"[n % 10] + out;
-		n = n / 10;
+	while (num > 0) {
+		out = "0123456789"[num % 10] + out;
+		num = num / 10;
 	}
 	
 	// Add negative sign (if negative)
