@@ -1,22 +1,22 @@
-func void println(string str) {
-	print(str + "\n");
+func void println(str s) {
+	print(s + "\n");
 }
 
-func string boolToStr(bool b) {
+func str boolToStr(bool b) {
 	if (b) {
 		ret "true";
 	}
 	ret "false";
 }
 
-func string intToStr(int num) {
+func str intToStr(int num) {
 	// If we don't do this, this will return ""
 	if (num == 0) {
 		ret "0";
 	}
-	 
+	
 	int n = num;
-	string out = "";
+	str out = "";
 	bool neg = n < 0;
 	
 	// Deal with negatives
