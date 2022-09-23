@@ -1,3 +1,23 @@
+func str toBin(int num) {
+	int i = 0;
+	str out = "";
+	while (i < 64) {
+		// Get only very right digit
+		int v = and(shr(num, i), 1);
+
+		// Insert 0 or 1
+		if (v == 0) {
+			out = "0" + out;
+		} else {
+			out = "1" + out;
+		}
+		
+		i += 1;
+	}
+	
+	ret out;
+}
+
 func dec rawCastIntToDec(int a) {
 	dec o = 0.0;
 	assembly {
@@ -60,6 +80,30 @@ func int not(int a) {
 		vlist_getptr rdi, $a$
 		mov rsi, 0
 		not rdi
+		vlist_set $o$
+	}
+	ret o;
+}
+
+func int shl(int a, int b) {
+	int o = 0;
+	assembly {
+		vlist_getptr rdi, $a$
+		vlist_getptr rcx, $b$
+		mov rsi, 0
+		shl rdi, cl
+		vlist_set $o$
+	}
+	ret o;
+}
+
+func int shr(int a, int b) {
+	int o = 0;
+	assembly {
+		vlist_getptr rdi, $a$
+		vlist_getptr rcx, $b$
+		mov rsi, 0
+		shr rdi, cl
 		vlist_set $o$
 	}
 	ret o;

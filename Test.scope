@@ -5,5 +5,10 @@ func void main() {
 	println("println");
 	println(boolToStr(true));
 	println(intToStr(123123));
-	println(intToStr(rawCastDecToInt(10.0)));
+	
+	int bits = 3354674;
+	println(toBin(bits));
+	int moreBits = -987181;
+	println(toBin(moreBits));
+	println(toBin(and(bits, moreBits)));
 }
