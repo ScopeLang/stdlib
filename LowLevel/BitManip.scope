@@ -1,0 +1,66 @@
+func dec rawCastIntToDec(int a) {
+	dec o = 0.0;
+	assembly {
+		vlist_getptr rdi, $a$
+		mov rsi, 0
+		vlist_set $o$
+	}
+	ret o;
+}
+
+func int rawCastDecToInt(dec a) {
+	int o = 0;
+	assembly {
+		vlist_getptr rdi, $a$
+		mov rsi, 0
+		vlist_set $o$
+	}
+	ret o;
+}
+
+func int and(int a, int b) {
+	int o = 0;
+	assembly {
+		vlist_getptr rdi, $a$
+		vlist_getptr rdx, $b$
+		mov rsi, 0
+		and rdi, rdx
+		vlist_set $o$
+	}
+	ret o;
+}
+
+func int or(int a, int b) {
+	int o = 0;
+	assembly {
+		vlist_getptr rdi, $a$
+		vlist_getptr rdx, $b$
+		mov rsi, 0
+		and rdi, rdx
+		vlist_set $o$
+	}
+	ret o;
+}
+
+func int xor(int a, int b) {
+	int o = 0;
+	assembly {
+		vlist_getptr rdi, $a$
+		vlist_getptr rdx, $b$
+		mov rsi, 0
+		and rdi, rdx
+		vlist_set $o$
+	}
+	ret o;
+}
+
+func int not(int a) {
+	int o = 0;
+	assembly {
+		vlist_getptr rdi, $a$
+		mov rsi, 0
+		not rdi
+		vlist_set $o$
+	}
+	ret o;
+}

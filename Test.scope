@@ -1,0 +1,9 @@
+import "Core";
+import "LowLevel/BitManip";
+
+func void main() {
+	println("println");
+	println(boolToStr(true));
+	println(intToStr(123123));
+	println(intToStr(rawCastDecToInt(10.0)));
+}

@@ -26,7 +26,7 @@ func str intToStr(int num) {
 	// Add digits (in reverse order)
 	while (num > 0) {
 		out = "0123456789"[num % 10] + out;
-		num = num / 10;
+		num /= 10;
 	}
 	
 	// Add negative sign (if negative)
