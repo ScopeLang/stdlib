@@ -1,9 +1,7 @@
 func str toBin(int num) {
-	int i = 0;
 	str out = "";
-	while (i < 64) {
-		// Get only very right digit
-		int v = and(shr(num, i), 1);
+	for (int i : 0..65) {
+		int v = nthBit(i, num);
 
 		// Insert 0 or 1
 		if (v == 0) {
@@ -11,10 +9,7 @@ func str toBin(int num) {
 		} else {
 			out = "1" + out;
 		}
-		
-		i += 1;
 	}
-	
 	ret out;
 }
 
@@ -36,6 +31,10 @@ func int rawCastDecToInt(dec a) {
 		vlist_set $o$
 	}
 	ret o;
+}
+
+func int nthBit(int n, int a) {
+	ret and(shr(a, n), 1);
 }
 
 func int and(int a, int b) {
