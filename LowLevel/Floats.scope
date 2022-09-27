@@ -1,0 +1,15 @@
+import "LowLevel/BitManip";
+
+/%
+Returns the exponent of @"d" as a raw int.
+%/
+func int exponentPart(dec d) {
+	ret and(shr(rawCastIntToDec(d), 52), 2047);
+}
+
+/%
+Returns the mantissa of @"d" as a raw int.
+%/
+func int mantissaPart(dec d) {
+	ret and(rawCastIntToDec(d), 4503599627370495);
+}
