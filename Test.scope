@@ -1,5 +1,6 @@
 import "Core";
-import "LowLevel/BitManip";
+import "LowLevel/Floats";
+import "Math/Rounding";
 
 func void main() {
 	println("println");
@@ -11,4 +12,9 @@ func void main() {
 	int moreBits = -987181;
 	println(toBin(moreBits));
 	println(toBin(and(bits, moreBits)));
+	
+	println(intToStr(exponentPart(0.01)));
+	println(intToStr(mantissaPart(0.01)));
+	
+	println(toBin(rawCastDecToInt(floor(5.3))));
 }
