@@ -19,6 +19,8 @@ func str toBin(int num) {
 }
 
 /%
+@asm
+
 Converts the bits of @"a" into a decimal number.
 
 No type conversion is done. Use casting if you intend on the numerical values matching.
@@ -34,6 +36,8 @@ func dec rawCastIntToDec(int a) {
 }
 
 /%
+@asm
+
 Converts the bits of @"a" into a integer.
 
 No type conversion is done. Use casting if you intend on the numerical values matching.
@@ -56,6 +60,8 @@ func int nthBit(int n, int a) {
 }
 
 /%
+@asm
+
 Returns the bitwise and of @"a" and @"b".
 %/
 func int and(int a, int b) {
@@ -71,6 +77,8 @@ func int and(int a, int b) {
 }
 
 /%
+@asm
+
 Returns the bitwise or of @"a" and @"b".
 %/
 func int or(int a, int b) {
@@ -86,6 +94,8 @@ func int or(int a, int b) {
 }
 
 /%
+@asm
+
 Returns the bitwise xor of @"a" and @"b".
 %/
 func int xor(int a, int b) {
@@ -101,6 +111,8 @@ func int xor(int a, int b) {
 }
 
 /%
+@asm
+
 Returns the bitwise not of @"a".
 %/
 func int not(int a) {
@@ -115,6 +127,8 @@ func int not(int a) {
 }
 
 /%
+@asm
+
 Returns @"a" bit-shifted to the left by @"b".
 @"b" gets down casted into a 8-bit number (0-255). Upper bits are ignored.
 %/
@@ -131,6 +145,8 @@ func int shl(int a, int b) {
 }
 
 /%
+@asm
+
 Returns @"a" bit-shifted to the right by @"b".
 @"b" gets down casted into a 8-bit number (0-255). Upper bits are ignored.
 %/
