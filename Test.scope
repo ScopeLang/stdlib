@@ -2,6 +2,7 @@ import "Core";
 import "LowLevel/Floats";
 import "Math/Core";
 import "Math/Rounding";
+import "Math/Factors";
 
 func void main() {
 	println("println");
@@ -18,6 +19,8 @@ func void main() {
 	println(intToStr(mantissaPart(0.01)));
 	
 	println(toBin(rawCastDecToInt(floor(5.3))));
-
 	println(toBin(rawCastDecToInt(sqrt(6.5) * sqrt(6.5))));
+
+	println(boolToStr(isPrime(3852)));
+	println(intToStr(lcm(75, 125)));
 }
