@@ -1,5 +1,9 @@
 import "LowLevel/Floats";
 
+namespace Math;
+
+using LowLevel;
+
 /%
 Rounds @"input" down to the nearest whole.
 

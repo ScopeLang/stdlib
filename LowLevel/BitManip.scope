@@ -1,3 +1,5 @@
+namespace LowLevel;
+
 /%
 Converts @"num" into a 64 character binary number.
 

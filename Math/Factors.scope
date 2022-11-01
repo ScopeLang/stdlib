@@ -1,3 +1,5 @@
+namespace Math;
+
 /%
 @unoptimized: This functions is slow for large values.
 @complexity: O(sqrt(n))

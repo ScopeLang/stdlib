@@ -1,5 +1,7 @@
 import "LowLevel/BitManip";
 
+namespace LowLevel;
+
 /%
 Returns the exponent of @"d" as a raw int.
 %/
