@@ -8,13 +8,12 @@ Returns the square root of @"x".
 func dec sqrt(dec x) {
 	dec o = 0.0;
 	assembly {
-		vlist_getptr rdi, $x$
+		vlist_get rdi, $x$
 		mov QWORD [fptmp], rdi
 		fld QWORD [fptmp]
 		fsqrt
 		fstp QWORD [fptmp]
 		mov rdi, QWORD [fptmp]
-		mov rsi, 0
 		vlist_set $o$
 	}
 	ret o;

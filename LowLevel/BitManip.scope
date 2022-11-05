@@ -30,8 +30,7 @@ No type conversion is done. Use casting if you intend on the numerical values ma
 func dec rawCastIntToDec(int a) {
 	dec o = 0.0;
 	assembly {
-		vlist_getptr rdi, $a$
-		mov rsi, 0
+		vlist_get rdi, $a$
 		vlist_set $o$
 	}
 	ret o;
@@ -47,8 +46,7 @@ No type conversion is done. Use casting if you intend on the numerical values ma
 func int rawCastDecToInt(dec a) {
 	int o = 0;
 	assembly {
-		vlist_getptr rdi, $a$
-		mov rsi, 0
+		vlist_get rdi, $a$
 		vlist_set $o$
 	}
 	ret o;
@@ -69,10 +67,9 @@ Returns the bitwise and of @"a" and @"b".
 func int and(int a, int b) {
 	int o = 0;
 	assembly {
-		vlist_getptr rdi, $a$
-		vlist_getptr rdx, $b$
-		mov rsi, 0
-		and rdi, rdx
+		vlist_get rdi, $a$
+		vlist_get rsi, $b$
+		and rdi, rsi
 		vlist_set $o$
 	}
 	ret o;
@@ -86,10 +83,9 @@ Returns the bitwise or of @"a" and @"b".
 func int or(int a, int b) {
 	int o = 0;
 	assembly {
-		vlist_getptr rdi, $a$
-		vlist_getptr rdx, $b$
-		mov rsi, 0
-		and rdi, rdx
+		vlist_get rdi, $a$
+		vlist_get rsi, $b$
+		and rdi, rsi
 		vlist_set $o$
 	}
 	ret o;
@@ -103,10 +99,9 @@ Returns the bitwise xor of @"a" and @"b".
 func int xor(int a, int b) {
 	int o = 0;
 	assembly {
-		vlist_getptr rdi, $a$
-		vlist_getptr rdx, $b$
-		mov rsi, 0
-		and rdi, rdx
+		vlist_get rdi, $a$
+		vlist_get rsi, $b$
+		and rdi, rsi
 		vlist_set $o$
 	}
 	ret o;
@@ -120,8 +115,7 @@ Returns the bitwise not of @"a".
 func int not(int a) {
 	int o = 0;
 	assembly {
-		vlist_getptr rdi, $a$
-		mov rsi, 0
+		vlist_get rdi, $a$
 		not rdi
 		vlist_set $o$
 	}
@@ -137,9 +131,8 @@ Returns @"a" bit-shifted to the left by @"b".
 func int shl(int a, int b) {
 	int o = 0;
 	assembly {
-		vlist_getptr rdi, $a$
-		vlist_getptr rcx, $b$
-		mov rsi, 0
+		vlist_get rdi, $a$
+		vlist_get rcx, $b$
 		shl rdi, cl
 		vlist_set $o$
 	}
@@ -155,9 +148,8 @@ Returns @"a" bit-shifted to the right by @"b".
 func int shr(int a, int b) {
 	int o = 0;
 	assembly {
-		vlist_getptr rdi, $a$
-		vlist_getptr rcx, $b$
-		mov rsi, 0
+		vlist_get rdi, $a$
+		vlist_get rcx, $b$
 		shr rdi, cl
 		vlist_set $o$
 	}
