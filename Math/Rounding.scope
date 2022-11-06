@@ -5,11 +5,12 @@ namespace Math;
 using LowLevel;
 
 /%
-Rounds @"input" down to the nearest whole.
+Rounds @"input" **down** to the nearest whole.
 
 `5.9` -> `5.0`
 `-86.1` -> `-86.0`
 `1.0` -> `1.0`
+`34.5` -> `34.0`
 %/
 func dec floor(dec input) {
 	// Floating point magic!
@@ -45,4 +46,16 @@ func dec floor(dec input) {
 	}
 
 	ret input;
+}
+
+/%
+Rounds @"input" to the nearest whole.
+
+`5.9` -> `6.0`
+`-86.1` -> `-86.0`
+`1.0` -> `1.0`
+`34.5` -> `35.0`
+%/
+func dec round(dec input) {
+	ret input -> int -> dec;
 }
