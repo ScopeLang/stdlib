@@ -6,12 +6,12 @@ namespace LowLevel;
 Returns the exponent of @"d" as a raw int.
 %/
 func int exponentPart(dec d) {
-	ret and(shr(rawCastDecToInt(d), 52), 2047);
+	ret and(shr(rawCastDecToInt(d), 52), 2'047);
 }
 
 /%
 Returns the mantissa of @"d" as a raw int.
 %/
 func int mantissaPart(dec d) {
-	ret and(rawCastDecToInt(d), 4503599627370495);
+	ret and(rawCastDecToInt(d), 4'503'599'627'370'495);
 }
