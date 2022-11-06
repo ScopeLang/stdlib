@@ -15,7 +15,7 @@ Rounds @"input" **down** to the nearest whole.
 func dec floor(dec input) {
 	// Floating point magic!
 	int asInt = rawCastDecToInt(input);
-	int exponent = exponentPart(input) - 1'023;
+	int exponent = exponentPart(input) - 1023;
 	if (exponent < 52) {
 		if (exponent < 0) {
 			// Return 0 * sign(input) if |input| < 1
