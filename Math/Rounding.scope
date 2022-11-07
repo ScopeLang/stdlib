@@ -38,24 +38,12 @@ func dec floor(dec input) {
 			
 			asInt = and(asInt, not(i));
 		}
-
+		
 		input = rawCastIntToDec(asInt);
 	} else {
 		// inf or NaN
 		ret input + input;
 	}
-
+	
 	ret input;
-}
-
-/%
-Rounds @"input" to the nearest whole.
-
-`5.9` -> `6.0`
-`-86.1` -> `-86.0`
-`1.0` -> `1.0`
-`34.5` -> `35.0`
-%/
-func dec round(dec input) {
-	ret input -> int -> dec;
 }
