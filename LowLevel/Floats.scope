@@ -27,6 +27,7 @@ Returns the mantissa of @"d" as a decimal.
 @"mantissaPartAsDec"(12.3456) -> `1.5432`
 %/
 func dec mantissaPartAsDec(dec d) {
+	int exponent = exponentPart(d);
 	int mantissa = mantissaPart(d);
 
 	// Convert to binary w/ decimal-point
@@ -40,6 +41,11 @@ func dec mantissaPartAsDec(dec d) {
 		
 		out += nthBit(52 - i, mantissa) -> dec * place;
 	}
-
-	ret 1.0 + out;
+	
+	// Check for denormalized
+	if (exponent == 0) {
+		ret out;
+	} else {
+		ret 1.0 + out;
+	}
 }
