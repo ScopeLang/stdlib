@@ -4,16 +4,15 @@ namespace Math;
 @asm
 
 Returns the square root of @"x".
+Uses the `sqrtsd` assembly instruction.
 %/
 func dec sqrt(dec x) {
 	dec o = 0.0;
 	assembly {
 		vlist_get rdi, $x$
-		mov QWORD [fptmp], rdi
-		fld QWORD [fptmp]
-		fsqrt
-		fstp QWORD [fptmp]
-		mov rdi, QWORD [fptmp]
+		movq xmm0, rdi
+		sqrtsd xmm0, xmm0
+		movq rdi, xmm0
 		vlist_set $o$
 	}
 	ret o;
