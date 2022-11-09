@@ -17,3 +17,104 @@ func dec sqrt(dec x) {
 	}
 	ret o;
 }
+
+/%
+@optimized: This function uses the divide-and-conquer algorithm.
+@complexity: O(log(@"exponent"))
+
+Computes the power of @"base" (decimal) to @"exponent" (integer).
+%/
+func dec pow_int(dec base, int exponent) { 
+	// Special cases
+	
+	if (exponent == 0) {
+		ret 1.0;
+	}
+	
+	if (exponent == 1) {
+		ret base;
+	}
+	
+	if (exponent == 2) {
+		ret base * base;
+	}
+	
+	if (base == 1.0) {
+		ret 1.0;
+	}
+	
+	// Divide and conquer!
+	
+	// This is basically just an optimized 
+	// version of the naive "repeated multiplication"
+	
+	dec i = pow_int(base, exponent / 2);
+	if (exponent % 2 == 0) {
+		ret i * i;
+	} else {
+		if (exponent > 0) { // If positive
+			ret i * i * base;
+		} else { // If negative
+			ret i * i / base;
+		}
+	}
+}
+
+/%
+@optimized: This function uses the Taylor series for log.
+
+Computes the log (base 10) of @"x".
+%/
+func dec log10(dec x) {
+	// Special cases
+	
+	if (x < 0.0) {
+		// TODO: prevent x < 0.0
+		ret nan;
+	}
+	
+	if (x == 0.0) {
+		ret -infinity;
+	}
+	
+	if (x == 1.0) {
+		ret 0.0;
+	}
+	
+	if (x == infinity) {
+		ret infinity;
+	}
+	
+	// log10(x) = base + log10(seriesSum)
+	// where x = seriesSum * 10 ^ base 
+	// where 0 < seriesSum < 1
+	
+	// Get the base
+	
+	dec base = 0.0;
+	while (x >= 1.0) {
+		x /= 10.0;
+		base += 1.0;
+	}
+	
+	// sqrt(1/10) = 0.316227766016837
+	while(x <= 0.316227766016837) {
+		x *= 10.0;
+		base -= 1.0;
+	}
+	
+	// Taylor series (for seriesSum)
+	
+	dec z = (x - 1.0) / (x + 1.0);
+	
+	// log(z) = 2 * (z + (z^3 / 3) + (z^5 / 5) + ...)
+	dec seriesSum = z;
+	for (int k : 3..23 step 2) {
+		seriesSum += pow_int(z, k) / k -> dec;
+	} 
+	
+	// Finally, return
+	
+	// 2 * log(e) = 0.868588963806503
+	ret base + 0.868588963806503 * seriesSum;
+}

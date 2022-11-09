@@ -2,7 +2,7 @@ namespace Math;
 
 /%
 @unoptimized: This functions is slow for large values.
-@complexity: O(sqrt(n))
+@complexity: O(sqrt(@"n"))
 
 Returns whether or not @"n" is prime.
 %/
