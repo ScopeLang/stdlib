@@ -19,12 +19,13 @@ func dec sqrt(dec x) {
 }
 
 /%
-@optimized: This function uses the divide-and-conquer algorithm.
 @complexity: O(log(@"exponent"))
 
 Computes the power of @"base" (decimal) to @"exponent" (integer).
+
+This function uses the divide-and-conquer algorithm.
 %/
-func dec pow_int(dec base, int exponent) { 
+func dec powInt(dec base, int exponent) { 
 	// Special cases
 	
 	if (exponent == 0) {
@@ -48,7 +49,7 @@ func dec pow_int(dec base, int exponent) {
 	// This is basically just an optimized 
 	// version of the naive "repeated multiplication"
 	
-	dec i = pow_int(base, exponent / 2);
+	dec i = powInt(base, exponent / 2);
 	if (exponent % 2 == 0) {
 		ret i * i;
 	} else {
@@ -61,9 +62,9 @@ func dec pow_int(dec base, int exponent) {
 }
 
 /%
-@optimized: This function uses the Taylor series for log.
-
 Computes the log (base 10) of @"x".
+
+This function uses the Taylor series for log.
 %/
 func dec log10(dec x) {
 	// Special cases
@@ -80,41 +81,75 @@ func dec log10(dec x) {
 	if (x == 1.0) {
 		ret 0.0;
 	}
+
+	if (x == 10.0) {
+		ret 1.0;
+	}
 	
 	if (x == infinity) {
 		ret infinity;
 	}
 	
-	// log10(x) = base + log10(seriesSum)
-	// where x = seriesSum * 10 ^ base 
-	// where 0 < seriesSum < 1
+	// The Taylor series below only works between 0 and 1
+	// Transform x to fit in the range with a summand (b)
+	// log10(x : 0..inf) = log10(x : 0..=1) + b
 	
-	// Get the base
+	// Get "b"
 	
-	dec base = 0.0;
+	dec b = 0.0;
 	while (x >= 1.0) {
 		x /= 10.0;
-		base += 1.0;
+		b += 1.0;
 	}
 	
 	// sqrt(1/10) = 0.316227766016837
 	while(x <= 0.316227766016837) {
 		x *= 10.0;
-		base -= 1.0;
+		b -= 1.0;
 	}
 	
 	// Taylor series (for seriesSum)
 	
 	dec z = (x - 1.0) / (x + 1.0);
 	
-	// log(z) = 2 * (z + (z^3 / 3) + (z^5 / 5) + ...)
+	// ln(z) = 2 * (z + (z^3 / 3) + (z^5 / 5) + ...)
 	dec seriesSum = z;
 	for (int k : 3..23 step 2) {
-		seriesSum += pow_int(z, k) / k -> dec;
-	} 
+		seriesSum += powInt(z, k) / k -> dec;
+	}
+	seriesSum *= 2.0;
 	
 	// Finally, return
+	// log10(x) = ln(x) * log10(e) + b
 	
-	// 2 * log(e) = 0.868588963806503
-	ret base + 0.868588963806503 * seriesSum;
+	// log10(e) = 0.434294481903251
+	ret seriesSum * 0.434294481903251 + b;
+}
+
+/%
+Computes the natural log (log base e) of @"x".
+
+This function uses @"log10" to compute the natural log.
+%/
+func dec ln(dec x) {
+	// ln(x) = log10(x) / log10(e)
+	ret log10(x) / 0.434294481903251;
+}
+
+/%
+Computes the log of @"x" with an arbitrary base, @"base".
+
+Use @"log10" for a base of `10`.
+Use @"ln" for a base of `e`.
+
+This function uses two calls to @"log10" to compute the result.
+%/
+func dec log(dec x, dec base) {
+	if (base <= 0.0) {
+		// TODO: prevent x <= 0.0
+		ret nan;
+	}
+
+	// log_base(x) = log10(x) / log10(base)
+	ret log10(x) / log10(base);
 }
