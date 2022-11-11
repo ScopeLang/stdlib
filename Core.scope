@@ -1,3 +1,10 @@
+import "LowLevel/Floats";
+import "Math/Rounding";
+import "Math/Core";
+
+using Math;
+using LowLevel;
+
 /%
 @noalloc: This function does not use string concatenation.
 
@@ -21,7 +28,7 @@ func str boolToStr(bool b) {
 }
 
 /%
-Converts @"num" into a string.
+Converts integer @"num" into a string.
 
 Returns the number in a basic format without any commas.
 Prepends a `-` if negative.
@@ -47,6 +54,78 @@ func str intToStr(int num) {
 	}
 	
 	// Add negative sign (if negative)
+	if (neg) {
+		out = "-" + out;
+	}
+	
+	ret out;
+}
+
+/%
+Converts decimal @"num" into a string.
+
+Returns the number a normal decimal format *or* scientific notation.
+Prepends a `-` if negative.
+%/
+func str decToStr(dec num) {
+	// Special cases
+	
+	if (num == 0.0) {
+		ret "0.0";
+	}
+	
+	if (num == infinity) {
+		ret "infinity";
+	}
+	
+	if (num == -infinity) {
+		ret "-infinity";
+	}
+	
+	// Normal cases
+	
+	// Deal with negatives
+	bool neg = num < 0.0;
+	if (neg) {
+		num = -num;
+	}
+	
+	int exponent = exponentPart(num) - 1023;
+	
+	str out = "NaN";
+	if (exponent < 39 & exponent > -21) { // The limit for a normal decimal representation
+		// Seperate the whole and decimal part
+		dec wholePart = floor(num);
+		dec decimalPart = num - wholePart;
+		
+		str whole = intToStr(wholePart -> int);
+		str decimal = intToStr((decimalPart * 1'000'000.0) -> int);
+		
+		// Pad with zeros on left
+		while (decimal.length < 6) {
+			decimal = "0" + decimal;
+		}
+		
+		out = whole + "." + decimal;
+	} else if (exponent != 1024) { // Represent in scientific notation
+		dec realMantissa = mantissaPartAsDec(num);
+		
+		// Convert the base 2 scientific to base 10
+		// x * 2 ^ y -> x * 10 ^ y
+		
+		// ln(2) / ln(10) = 0.301029995663981
+		// Also add a little bit for floating point inaccuracy
+		dec result =
+			log10(realMantissa) +
+			exponent -> dec * 0.301029995663981 +
+			0.0000000000001;
+		
+		dec newExponent = floor(result);
+		dec newMantissa = pow(10.0, result - newExponent);
+		
+		out = decToStr(newMantissa) + " * 10 ^ " + intToStr(newExponent -> int);
+	}
+	
 	if (neg) {
 		out = "-" + out;
 	}
