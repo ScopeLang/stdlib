@@ -16,6 +16,23 @@ func void println(str s) {
 }
 
 /%
+@asm
+
+Returns the user input from `stdin` until a new line. 
+The new line is not included in the final string.
+
+The program will pause until the user finishes the input.
+%/
+func str input() {
+	str o = "";
+	assembly {
+		call input
+		vlist_set $o$
+	}
+	ret o;
+}
+
+/%
 Converts @"b" into a string.
 
 Returns `"true"` or `"false"`.
