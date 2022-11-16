@@ -203,7 +203,7 @@ func dec exp(dec x) {
 		x = -x;
 	}
 	
-	// The Taylor series below is only accurate between -2 and 2
+	// The Taylor series below is only accurate between -2 and 2.
 	// Transform x to fit in the range.
 	// e ^ 8.2 = e^3.2 * e^6.0
 	// Note that the exponent in the second power is an integer
