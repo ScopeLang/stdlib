@@ -81,9 +81,10 @@ func dec pow(dec base, dec exponent) {
 }
 
 /%
-Computes the log (base 10) of @"x".
+@approx: This function uses the Taylor series expansion of log10. This function
+	is not 100% accurate but will provide a very good approximation.
 
-This function uses the Taylor series for log.
+Computes the log (base 10) of @"x".
 %/
 func dec log10(dec x) {
 	// Special cases
@@ -146,6 +147,9 @@ func dec log10(dec x) {
 }
 
 /%
+@approx: This function uses the Taylor series expansion of log10. This function
+	is not 100% accurate but will provide a very good approximation.
+
 Computes the natural log (log base e) of @"x".
 
 This function uses @"log10" to compute the natural log.
@@ -156,6 +160,9 @@ func dec ln(dec x) {
 }
 
 /%
+@approx: This function uses the Taylor series expansion of log10. This function
+	is not 100% accurate but will provide a very good approximation.
+
 Computes the log of @"x" with an arbitrary base, @"base".
 
 Use @"log10" for a base of `10`.
@@ -174,9 +181,10 @@ func dec log(dec x, dec base) {
 }
 
 /%
-Computes e ^ @"x".
+@approx: This function uses the Taylor series expansion of exp. This function
+	is not 100% accurate but will provide a very good approximation.
 
-This function uses the Taylor series to compute the result.
+Computes e ^ @"x".
 %/
 func dec exp(dec x) {
 	// Temp until global constants
