@@ -11,9 +11,6 @@ Computes the sine of @"x" (in radians).
 Please note that an input of @"PI" **will not** return exactly `0.0`.
 %/
 func dec sin(dec x) {
-	// Temp until global constants
-	dec PI = 3.141592653589793;
-	
 	// Special cases
 	
 	if (x == infinity) {
@@ -73,9 +70,6 @@ Computes the cosine of @"x" (in radians).
 Please note that an input of @"PI" **will not** return exactly `-1.0`.
 %/
 func dec cos(dec x) {
-	// Temp until global constants
-	dec PI = 3.141592653589793;
-	
 	ret sin(x + PI / 2.0);
 }
 

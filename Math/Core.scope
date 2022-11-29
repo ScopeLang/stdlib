@@ -1,6 +1,19 @@
 namespace Math;
 
 /%
+The ratio of a circle's circumference to its diameter.
+%/
+const dec PI = 3.141592653589793;
+/%
+Euler's number. The base of the natural log.
+%/
+const dec E = 2.718281828459045;
+/%
+The result of @"log10" of @"E".
+%/
+const dec LOG10_E = 0.434294481903251;
+
+/%
 @asm
 
 Returns the square root of @"x".
@@ -142,8 +155,7 @@ func dec log10(dec x) {
 	// Finally, return
 	// log10(x) = ln(x) * log10(e) + b
 	
-	// log10(e)   = 0.434294481903251
-	ret seriesSum * 0.434294481903251 + b;
+	ret seriesSum * LOG10_E + b;
 }
 
 /%
@@ -156,7 +168,7 @@ This function uses @"log10" to compute the natural log.
 %/
 func dec ln(dec x) {
 	// ln(x) = log10(x) / log10(e)
-	ret log10(x) / 0.434294481903251;
+	ret log10(x) / LOG10_E;
 }
 
 /%
@@ -187,9 +199,6 @@ func dec log(dec x, dec base) {
 Computes e ^ @"x".
 %/
 func dec exp(dec x) {
-	// Temp until global constants
-	dec E = 2.718281828459045;
-	
 	// Special cases
 	
 	if (x == -infinity) {
