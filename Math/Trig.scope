@@ -3,6 +3,11 @@ import "Math/Core";
 namespace Math;
 
 /%
+The result of @"PI" / 180. 
+%/
+const dec DEG_TO_RAD = 0.017453292519943;
+
+/%
 @approx: This function uses the Taylor series expansion of sine. This function
 	is not 100% accurate but will provide a very good approximation.
 
@@ -119,4 +124,18 @@ Please note that an input of @"PI" **will not** return *exactly* `0.0`.
 %/
 func dec cot(dec x) {
 	ret 1.0 / tan(x);
+}
+
+/%
+Returns @"degrees" converted into radians.
+%/
+func dec degToRad(dec degrees) {
+	ret degrees * DEG_TO_RAD;
+}
+
+/%
+Returns @"radians" converted into degrees.
+%/
+func dec radToDeg(dec radians) {
+	ret radians / DEG_TO_RAD;
 }
