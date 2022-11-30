@@ -8,7 +8,7 @@ namespace Math;
 
 Computes the sine of @"x" (in radians).
 
-Please note that an input of @"PI" **will not** return exactly `0.0`.
+Please note that an input of @"PI" **will not** return *exactly* `0.0`.
 %/
 func dec sin(dec x) {
 	// Special cases
@@ -67,7 +67,7 @@ func dec sin(dec x) {
 
 Computes the cosine of @"x" (in radians).
 
-Please note that an input of @"PI" **will not** return exactly `-1.0`.
+Please note that an input of @"PI" **will not** return *exactly* `-1.0`.
 %/
 func dec cos(dec x) {
 	ret sin(x + PI / 2.0);
@@ -79,8 +79,44 @@ func dec cos(dec x) {
 
 Computes the tanget of @"x" (in radians).
 
-Please note that an input of @"PI" **will not** return exactly `0.0`.
+Please note that an input of @"PI" **will not** return *exactly* `0.0`.
 %/
 func dec tan(dec x) {	
 	ret sin(x) / cos(x);
+}
+
+/%
+@approx: This function uses the Taylor series expansion of sine. This function
+	is not 100% accurate but will provide a very good approximation.
+
+Computes the cosecant of @"x" (in radians).
+
+Please note that an input of @"PI" **will not** return *exactly* `0.0`.
+%/
+func dec csc(dec x) {
+	ret 1.0 / sin(x);
+}
+
+/%
+@approx: This function uses the Taylor series expansion of sine. This function
+	is not 100% accurate but will provide a very good approximation.
+
+Computes the secant of @"x" (in radians).
+
+Please note that an input of @"PI" **will not** return *exactly* `0.0`.
+%/
+func dec sec(dec x) {
+	ret 1.0 / cos(x);
+}
+
+/%
+@approx: This function uses the Taylor series expansion of sine. This function
+	is not 100% accurate but will provide a very good approximation.
+
+Computes the cotangent of @"x" (in radians).
+
+Please note that an input of @"PI" **will not** return *exactly* `0.0`.
+%/
+func dec cot(dec x) {
+	ret 1.0 / tan(x);
 }
