@@ -14,29 +14,33 @@ The result of @"log10" of @"E".
 const dec LOG10_E = 0.434294481903251;
 
 /%
-@asm
+@approx: This function uses the @"pow" function to compute the answer. This function
+	is not 100% accurate but will provide a very good approximation.
 
-Returns the square root of @"x".
-Uses the `sqrtsd` assembly instruction.
+Computes the square root of @"radicant".
+
+Use @"root" if you want an arbitrary index.
 %/
-func dec sqrt(dec x) {
-	dec o = 0.0;
-	assembly {
-		vlist_get rdi, $x$
-		movq xmm0, rdi
-		sqrtsd xmm0, xmm0
-		movq rdi, xmm0
-		vlist_set $o$
-	}
-	ret o;
+func dec sqrt(dec radicant) {
+	ret pow(radicant, 0.5);
+}
+
+/%
+@approx: This function uses the @"pow" function to compute the answer. This function
+	is not 100% accurate but will provide a very good approximation.
+
+Computes the @"index"th root of @"radicant".
+
+Use @"sqrt" for an index of `2`.
+%/
+func dec root(dec index, dec radicant) {
+	ret pow(radicant, 1.0 / index);
 }
 
 /%
 @complexity: O(log(@"exponent"))
 
 Computes the power of @"base" (decimal) to @"exponent" (integer).
-
-This function uses the divide-and-conquer algorithm.
 %/
 func dec powInt(dec base, int exponent) { 
 	// Special cases
@@ -80,8 +84,6 @@ func dec powInt(dec base, int exponent) {
 @todo: Add support for negative bases.
 
 Computes @"base" ^ @"exponent".
-
-This function uses @"exp" and @"ln" to compute the power.
 %/
 func dec pow(dec base, dec exponent) {
 	// log10(base ^ exponent) = log10(base) * exponent 
@@ -163,8 +165,6 @@ func dec log10(dec x) {
 	is not 100% accurate but will provide a very good approximation.
 
 Computes the natural log (log base e) of @"x".
-
-This function uses @"log10" to compute the natural log.
 %/
 func dec ln(dec x) {
 	// ln(x) = log10(x) / log10(e)
@@ -179,8 +179,6 @@ Computes the log of @"x" with an arbitrary base, @"base".
 
 Use @"log10" for a base of `10`.
 Use @"ln" for a base of `e`.
-
-This function uses two calls to @"log10" to compute the result.
 %/
 func dec log(dec x, dec base) {
 	if (base <= 0.0) {
@@ -196,7 +194,7 @@ func dec log(dec x, dec base) {
 @approx: This function uses the Taylor series expansion of exp. This function
 	is not 100% accurate but will provide a very good approximation.
 
-Computes e ^ @"x".
+Computes e ^ @"x" or exp(@"x").
 %/
 func dec exp(dec x) {
 	// Special cases
