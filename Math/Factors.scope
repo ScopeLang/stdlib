@@ -14,7 +14,7 @@ func bool isPrime(int n) {
 	
 	// Starting at 2 and while i <= sqrt(n) (or i * i <= n)
 	int i = 2;
-	while (i * i < n + 1) {
+	while (i * i <= n) {
 		// If n is divisible by i, than it is not prime
 		if (n % i == 0) {
 			ret false;
@@ -25,6 +25,16 @@ func bool isPrime(int n) {
 	
 	// If the loop passed without returning, it is a prime
 	ret true;
+}
+
+/%
+@unoptimized: This functions is slow for large values.
+@complexity: O(sqrt(@"n"))
+
+Returns whether or not @"n" is composite.
+%/
+func bool isComposite(int n) {
+	ret !isPrime(n);
 }
 
 /%
