@@ -1,4 +1,5 @@
 import "LowLevel/Floats";
+import "LowLevel/Limits";
 import "Math/Rounding";
 import "Math/Core";
 
@@ -30,6 +31,38 @@ func str input() {
 		vlist_set $o$
 	}
 	ret o;
+}
+
+/%
+@asm
+
+Stops the program for @"time" seconds.
+@"time" will be clamped between 0 and @"INT_MAX".
+%/
+func void sleep(dec time) {
+	// Special cases
+
+	if (time <= 0.0) {
+		ret;
+	}
+
+	if (time > INT_MAX -> dec) {
+		time = INT_MAX -> dec;
+	}
+	
+	// Convert input to seconds and nanoseconds
+	
+	dec rounded = floor(time);
+	int seconds = rounded -> int;
+	int nano = ((time - rounded) * 1'000'000'000.0) -> int;
+	
+	// Call syscall
+
+	assembly {
+		vlist_get rdi, $seconds$
+		vlist_get rsi, $nano$
+		call sleep
+	}
 }
 
 /%
