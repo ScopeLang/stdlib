@@ -238,10 +238,10 @@ func dec exp(dec x) {
 	
 	// exp(x) = (x^0 / 0!) + (x^1 / 1!) + (x^2 / 2!) + ...
 	dec seriesSum = 1.0;
-	int factorial = 1;
+	dec factorial = 1.0;
 	for (int k : 1..23) {
-		factorial *= k;
-		seriesSum += powInt(x, k) / (factorial -> dec);
+		factorial *= k -> dec;
+		seriesSum += powInt(x, k) / factorial;
 	}
 	
 	// Finally, return

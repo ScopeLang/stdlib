@@ -8,14 +8,26 @@ The result of @"PI" / 180.
 const dec DEG_TO_RAD = 0.017453292519943;
 
 /%
-@approx: This function uses the Taylor series expansion of sine. This function
+@approx: This function uses the Taylor series expansion of cosine. This function
 	is not 100% accurate but will provide a very good approximation.
 
-Computes the sine of @"x" (in radians).
+Computes the sin of @"x" (in radians).
 
 Please note that an input of @"PI" **will not** return *exactly* `0.0`.
 %/
 func dec sin(dec x) {
+	ret cos(x - PI / 2.0);
+}
+
+/%
+@approx: This function uses the Taylor series expansion of cosine. This function
+	is not 100% accurate but will provide a very good approximation.
+
+Computes the cosine of @"x" (in radians).
+
+Please note that an input of @"PI" **will not** return *exactly* `-1.0`.
+%/
+func dec cos(dec x) {
 	// Special cases
 	
 	if (x == infinity) {
@@ -28,7 +40,7 @@ func dec sin(dec x) {
 	
 	// The Taylor series below is only accurate between -3 and 3.
 	// Transform x to fit in the range.
-	// Since sine is a periodic function, we can just keep x between
+	// Since cosine is a periodic function, we can just keep x between
 	// -PI and PI.
 	
 	while (x > PI) {
@@ -47,18 +59,27 @@ func dec sin(dec x) {
 	
 	// Taylor series
 	
-	
-	// sin(x) = (x^1 / 1!) - (x^3 / 3!) + (x^5 / 5!) - (x^7 / 7!)
+	// cos(x) = 1 - (x^2 / 2!) + (x^4 / 4!) - (x^6 / 6!) + ...
 	dec seriesSum = 0.0;
-	int factorial = 1;
-	for (int k : 4..24 step 4) {
-		if (k != 4) {
-			factorial *= (k - 4) * (k - 3);
+	dec factorial = 1.0;
+	for (int k : 0..24 step 1) {
+		dec numerator = 1.0;
+		if (k % 2 != 0) {
+			numerator = -1.0;
 		}
-		seriesSum += powInt(x, k - 3) / (factorial -> dec);
 		
-		factorial *= (k - 2) * (k - 1);
-		seriesSum -= powInt(x, k - 1) / (factorial -> dec);
+		// Rippling factorial
+		// Don't recalculate it every loop, just use the last value.
+		if (k != 0) {
+			dec kd = k -> dec;
+			factorial *= 2.0 * kd - 1.0;
+			factorial *= 2.0 * kd;
+		}
+
+		dec a = numerator / factorial;
+		dec b = powInt(x, 2 * k);
+
+		seriesSum += a * b;
 	}
 	
 	// Finally, return
@@ -67,19 +88,7 @@ func dec sin(dec x) {
 }
 
 /%
-@approx: This function uses the Taylor series expansion of sine. This function
-	is not 100% accurate but will provide a very good approximation.
-
-Computes the cosine of @"x" (in radians).
-
-Please note that an input of @"PI" **will not** return *exactly* `-1.0`.
-%/
-func dec cos(dec x) {
-	ret sin(x + PI / 2.0);
-}
-
-/%
-@approx: This function uses the Taylor series expansion of sine. This function
+@approx: This function uses the Taylor series expansion of cosine. This function
 	is not 100% accurate but will provide a very good approximation.
 
 Computes the tanget of @"x" (in radians).
@@ -91,7 +100,7 @@ func dec tan(dec x) {
 }
 
 /%
-@approx: This function uses the Taylor series expansion of sine. This function
+@approx: This function uses the Taylor series expansion of cosine. This function
 	is not 100% accurate but will provide a very good approximation.
 
 Computes the cosecant of @"x" (in radians).
@@ -103,7 +112,7 @@ func dec csc(dec x) {
 }
 
 /%
-@approx: This function uses the Taylor series expansion of sine. This function
+@approx: This function uses the Taylor series expansion of cosine. This function
 	is not 100% accurate but will provide a very good approximation.
 
 Computes the secant of @"x" (in radians).
@@ -115,7 +124,7 @@ func dec sec(dec x) {
 }
 
 /%
-@approx: This function uses the Taylor series expansion of sine. This function
+@approx: This function uses the Taylor series expansion of cosine. This function
 	is not 100% accurate but will provide a very good approximation.
 
 Computes the cotangent of @"x" (in radians).
