@@ -55,10 +55,10 @@ func dec sin(dec x) {
 		if (k != 4) {
 			factorial *= (k - 4) * (k - 3);
 		}
-		seriesSum += powInt(x, k - 3) / factorial -> dec;
+		seriesSum += powInt(x, k - 3) / (factorial -> dec);
 		
 		factorial *= (k - 2) * (k - 1);
-		seriesSum -= powInt(x, k - 1) / factorial -> dec;
+		seriesSum -= powInt(x, k - 1) / (factorial -> dec);
 	}
 	
 	// Finally, return

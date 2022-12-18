@@ -54,7 +54,7 @@ func void sleep(dec time) {
 	
 	dec rounded = floor(time);
 	int seconds = rounded -> int;
-	int nano = ((time - rounded) * 1'000'000'000.0) -> int;
+	int nano = (time - rounded) * 1'000'000'000.0 -> int;
 	
 	// Call syscall
 
@@ -149,7 +149,7 @@ func str decToStr(dec num) {
 		dec decimalPart = num - wholePart;
 		
 		str whole = intToStr(wholePart -> int);
-		str decimal = intToStr((decimalPart * 1'000'000.0) -> int);
+		str decimal = intToStr(decimalPart * 1'000'000.0 -> int);
 		
 		// Pad with zeros on left
 		while (decimal.length < 6) {
@@ -167,7 +167,7 @@ func str decToStr(dec num) {
 		// Also add a little bit for floating point inaccuracy
 		dec result =
 			log10(realMantissa) +
-			exponent -> dec * 0.301029995663981 +
+			(exponent -> dec) * 0.301029995663981 +
 			0.0000000000001;
 		
 		dec newExponent = floor(result);

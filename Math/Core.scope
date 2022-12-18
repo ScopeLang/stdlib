@@ -150,7 +150,7 @@ func dec log10(dec x) {
 	// ln(z) = 2 * (z + (z^3 / 3) + (z^5 / 5) + ...)
 	dec seriesSum = z;
 	for (int k : 3..23 step 2) {
-		seriesSum += powInt(z, k) / k -> dec;
+		seriesSum += powInt(z, k) / (k -> dec);
 	}
 	seriesSum *= 2.0;
 	
@@ -241,7 +241,7 @@ func dec exp(dec x) {
 	int factorial = 1;
 	for (int k : 1..23) {
 		factorial *= k;
-		seriesSum += powInt(x, k) / factorial -> dec;
+		seriesSum += powInt(x, k) / (factorial -> dec);
 	}
 	
 	// Finally, return
